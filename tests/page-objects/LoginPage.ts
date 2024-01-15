@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
@@ -6,6 +6,7 @@ export class LoginPage {
   readonly passwordInput: Locator;
   readonly submitButton: Locator;
   readonly errorMessage: Locator;
+  readonly loginForm: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +14,7 @@ export class LoginPage {
     this.passwordInput = page.locator('#user_password');
     this.submitButton = page.locator('input[type="submit"]');
     this.errorMessage = page.locator('text=Login and/or password are wrong.');
+    this.loginForm = page.locator('#login_form');
   }
 
   async visit() {
@@ -23,5 +25,15 @@ export class LoginPage {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.submitButton.click();
+  }
+
+  async snapshotLoginForm() {
+    expect(await this.loginForm.screenshot()).toMatchSnapshot('login-form.png');
+  }
+
+  async snapshotErrorMessage() {
+    expect(await this.errorMessage.screenshot()).toMatchSnapshot(
+      'login-error.png',
+    );
   }
 }
