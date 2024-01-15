@@ -6,7 +6,7 @@
   "scripts": {
     "tests:e2e": "playwright test --config=e2e.config.ts --project=Chromium",
     "tests:e2e:visual": "playwright test --config visual.config.ts",
-    "tests:e2e:api": "playwright test --config api.config.ts"
+    "tests:e2e:api": "playwright test --config api.config.ts --project=Chromium"
   },
   "author": "",
   "license": "ISC",
